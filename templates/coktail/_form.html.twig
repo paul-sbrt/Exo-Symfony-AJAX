@@ -1,0 +1,30 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+<button class="btn btn-success">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+<script>
+    document.getElementById("coktail_couleurs").addEventListener("change", function() {
+        let couleurId = this.value;
+        fetchFruits(couleurId);
+    });
+
+    async function fetchFruits(couleurId) {
+        let response = await fetch('/fetch-fruits/'+ couleurId);
+        let fruits = await response.json();
+        let fruitSelect = document.getElementById('coktail_fruits');
+        fruitSelect.innerHTML = '';
+
+        for (let fruit of fruits) {
+            let option = document.createElement('option');
+            option.value = fruit.id;
+            option.textContent = fruit.nom;
+            fruitSelect.appendChild(option);
+        }
+    }
+</script>
+
+
+
+
+

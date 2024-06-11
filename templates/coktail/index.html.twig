@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Coktail index{% endblock %}
+
+{% block body %}
+    <h1>Coktail index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Fruit</th>
+                <th>Couleur</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for coktail in coktails %}
+            <tr>
+                <td>{{ coktail.nom }}</td>
+                <td>{{ coktail.fruits.nom}}</td>
+                <td>{{ coktail.fruits.couleurs.nom}}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('app_coktail_show', {'id': coktail.id}) }}">show</a>
+                    <a  class="btn btn-primary" href="{{ path('app_coktail_edit', {'id': coktail.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-success" href="{{ path('app_coktail_new') }}">Create new</a>
+{% endblock %}
